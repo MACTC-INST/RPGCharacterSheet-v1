@@ -21,6 +21,7 @@ namespace RPGChar_PM
         private int _maxStamina = 20;
         private int _maxStrength = 20;
         private int _maxWisdom = 20;
+        private List<RPGCharacter> _partyMembers = new List<RPGCharacter>();
 
         private CharacterClasses _characterClass = CharacterClasses.None;
         private Random _rng = new Random();
@@ -33,6 +34,11 @@ namespace RPGChar_PM
         {
             get { return _characterClass; }
             set { _characterClass = value; }
+        }
+        public List<RPGCharacter> PartyMembers
+        {
+            get { return _partyMembers; }
+            set { _partyMembers = value; }
         }
         public int Charisma { get { return _charisma; } }
         public int Dexterity { get { return _dexterity; } }
