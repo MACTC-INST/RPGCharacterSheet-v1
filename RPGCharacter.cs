@@ -43,9 +43,9 @@ namespace RPGChar_PM
         public int Charisma { get { return _charisma; } }
         public int Dexterity { get { return _dexterity; } }
         public int Intelligence { get { return _intelligence; } }
-        public int Stamina {  get {  return _stamina; } }
-        public int Strength { get {  return _strength; } }
-        public int Wisdom {  get {  return _wisdom; } }
+        public int Stamina { get { return _stamina; } }
+        public int Strength { get { return _strength; } }
+        public int Wisdom { get { return _wisdom; } }
         #endregion
 
         public RPGCharacter()
@@ -62,6 +62,20 @@ namespace RPGChar_PM
             _strength = _rng.Next(1, _maxStrength + 1);
             _wisdom = _rng.Next(1, _maxWisdom + 1);
         }
+
+        public static int RollDice(int numberOfDice, int numberOfSides)
+        {
+            Random r = new Random();
+            int total = 0;
+
+            for(int i = 0; i < numberOfDice; i++)
+            {
+                total += r.Next(1, numberOfSides+1);
+            }
+
+            return total;
+        }
+
 
     }
 

@@ -21,11 +21,16 @@ namespace RPGChar_PM
     public partial class MainWindow : Window
     {
         private RPGCharacter _character = new RPGCharacter();
+        private Random _rng = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
             updateStats();
+            int d1 = RPGCharacter.RollDice(2, 20);
+            int d2 = RPGCharacter.RollDice(1000, 8);
+            MessageBox.Show(d1.ToString());
+            MessageBox.Show(d2.ToString());
         }
 
         private void buttonUpdateName_Click(object sender, RoutedEventArgs e)
@@ -37,6 +42,29 @@ namespace RPGChar_PM
         {
             _character.Roll();
             updateStats();
+            double odds = .5;
+
+            _character.PartyMembers.Clear();
+            foreach (ListBoxItem i in listPotentialMembers.Items)
+            {
+                if (_rng.NextDouble() > odds)
+                {
+                    RPGCharacter r = new RPGCharacter()
+                    { Name = i.Content.ToString() };
+
+                    _character.PartyMembers.Add(r);
+                }
+            }
+
+            listPartyMembers.Items.Clear();
+            foreach (RPGCharacter r in _character.PartyMembers)
+            {
+                ListBoxItem i = new ListBoxItem();
+                i.Content = $"{r.Name} STR: {r.Strength} INT: {r.Intelligence}";
+                listPartyMembers.Items.Add(i);
+            }
+            
+
         }
 
         private void updateStats()

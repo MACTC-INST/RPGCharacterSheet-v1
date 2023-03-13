@@ -32,6 +32,8 @@
             <ListBoxItem Content="Luigi" Background="#FF14981C"/>
         </ListBox>
         <TextBlock HorizontalAlignment="Left" Margin="302,50,0,0" TextWrapping="Wrap" Text="Potential Party Members:" VerticalAlignment="Top"/>
+        <ListBox x:Name="listPartyMembers" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="466,67,119,219"/>
+        <TextBlock HorizontalAlignment="Left" Margin="466,51,0,0" TextWrapping="Wrap" Text="Party Members:" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
