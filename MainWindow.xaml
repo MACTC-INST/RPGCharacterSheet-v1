@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.png" TileMode="None" Stretch="Fill"/>
+        </Grid.Background>
         <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="41,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" AutomationProperties.HelpText="Enter Name"/>
         <TextBlock HorizontalAlignment="Left" Margin="41,45,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
         <Button x:Name="buttonUpdateName" Content="Update Name" HorizontalAlignment="Left" Margin="41,191,0,0" VerticalAlignment="Top" Width="94" Click="buttonUpdateName_Click"/>

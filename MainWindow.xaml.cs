@@ -20,13 +20,15 @@ namespace RPGCharacterSheet
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RPGCharacter _character = new RPGCharacter();
+        private RPGCharacter _character;
         private Random _rng = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
+            _character = new RPGCharacter(_rng);
             updateStats();
+
         }
 
         private void buttonUpdateName_Click(object sender, RoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace RPGCharacterSheet
             _character.Roll();
             updateStats();
 
-            double odds = .5;
+            const double odds = .5;
 
             _character.PartyMembers.Clear();
 
@@ -47,7 +49,7 @@ namespace RPGCharacterSheet
             {
                 if (_rng.NextDouble() > odds)
                 {
-                    RPGCharacter c = new RPGCharacter()
+                    RPGCharacter c = new RPGCharacter(_rng)
                     {
                         Name = i.Content.ToString()
                     };
@@ -55,10 +57,31 @@ namespace RPGCharacterSheet
                 }
             }
 
+            // Junk test code
+            if (_character.PartyMembers.Count > 0)
+            {
+                _character.PartyMembers[0].FavoriteColor = Brushes.Bisque;
+            }
+
+            Brush color1 = Brushes.LightBlue;
+            Brush color2 = Brushes.LightGreen;
+
             listPartyMembers.Items.Clear();
             foreach (RPGCharacter c in _character.PartyMembers)
             {
                 ListBoxItem i = new ListBoxItem();
+                if (c.FavoriteColor != null)
+                {
+                    i.Background = c.FavoriteColor;
+                }
+                else if (listPartyMembers.Items.Count % 2 == 0)
+                {
+                    i.Background = color1;
+                }
+                else
+                {
+                    i.Background = color2;
+                }
                 i.Content = $"{c.Name} STR: {c.Strength} INT: {c.Intelligence}";
                 listPartyMembers.Items.Add(i);
             }
