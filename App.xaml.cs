@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace RPGChar_PM
+namespace RPGCharacterSheet
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
-namespace RPGChar_PM
+namespace RPGCharacterSheet
 {
     internal class RPGCharacter
     {
@@ -21,8 +23,10 @@ namespace RPGChar_PM
         private int _maxStamina = 20;
         private int _maxStrength = 20;
         private int _maxWisdom = 20;
+        private int _statNumberDice = 1;
+        private int _statDiceSides = 20;
         private List<RPGCharacter> _partyMembers = new List<RPGCharacter>();
-
+        private Brush _favoriteColor; 
         private CharacterClasses _characterClass = CharacterClasses.None;
         private Random _rng = new Random();
 
@@ -40,6 +44,11 @@ namespace RPGChar_PM
             get { return _partyMembers; }
             set { _partyMembers = value; }
         }
+        public Brush FavoriteColor
+        {
+            get { return _favoriteColor; }
+            set { _favoriteColor = value; }
+        }
         public int Charisma { get { return _charisma; } }
         public int Dexterity { get { return _dexterity; } }
         public int Intelligence { get { return _intelligence; } }
@@ -48,24 +57,24 @@ namespace RPGChar_PM
         public int Wisdom { get { return _wisdom; } }
         #endregion
 
-        public RPGCharacter()
+        public RPGCharacter(Random rng)
         {
+            _rng = rng;
             Roll();
         }
 
         public void Roll()
         {
-            _charisma = _rng.Next(1, _maxCharisma + 1);
-            _dexterity = _rng.Next(1, _maxDexterity + 1);
-            _intelligence = _rng.Next(1, _maxIntelligence + 1); ;
-            _stamina = _rng.Next(1, _maxStamina + 1);
-            _strength = _rng.Next(1, _maxStrength + 1);
-            _wisdom = _rng.Next(1, _maxWisdom + 1);
+            _charisma = Math.Min(RollDice(_statNumberDice, _statDiceSides, _rng), _maxCharisma);
+            _dexterity = Math.Min(RollDice(_statNumberDice,_statDiceSides, _rng), _maxDexterity);
+            _intelligence = Math.Min(RollDice(_statNumberDice, _statDiceSides, _rng), _maxIntelligence); ;
+            _stamina = Math.Min(RollDice(_statNumberDice, _statDiceSides, _rng), _maxStamina);
+            _strength = Math.Min(RollDice(_statNumberDice, _statDiceSides, _rng), _maxStrength);
+            _wisdom = Math.Min(RollDice(_statNumberDice, _statDiceSides, _rng), _maxWisdom);
         }
 
-        public static int RollDice(int numberOfDice, int numberOfSides)
-        {
-            Random r = new Random();
+        public static int RollDice(int numberOfDice, int numberOfSides, Random r)
+        {   
             int total = 0;
 
             for(int i = 0; i < numberOfDice; i++)
